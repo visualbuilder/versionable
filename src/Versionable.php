@@ -265,6 +265,10 @@ trait Versionable
 
         if (count($versionable) > 0) {
             $attributes = Arr::only($attributes, $versionable);
+            $replacements = Arr::only($replacements, $versionable);
+        } elseif (count($dontVersionable) > 0) {
+            $attributes = Arr::except($attributes, $dontVersionable);
+            $replacements = Arr::except($replacements, $dontVersionable);
         }
 
         return Arr::except(array_merge($attributes, $replacements), $dontVersionable);

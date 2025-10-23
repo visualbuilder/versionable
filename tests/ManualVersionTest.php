@@ -92,6 +92,19 @@ class ManualVersionTest extends TestCase
         $this->assertEquals('version3', $post->latestVersion->contents['title']);
     }
 
+    public function test_manual_version_excludes_non_versionable_fields()
+    {
+        $post = Post::create(['title' => 'version1', 'content' => 'version1 content']);
+
+        $post->title = 'version2';
+        $version = $post->createVersion(['not_versionable_field' => 'should not persist']);
+
+        $this->assertNotNull($version);
+        $this->assertCount(2, $post->refresh()->versions);
+        $this->assertSame('version2', $post->latestVersion->contents['title']);
+        $this->assertArrayNotHasKey('not_versionable_field', $post->latestVersion->contents);
+    }
+
     public function test_attributes_will_be_merged_in_snapshot_mode()
     {
         Post::disableVersioning();
