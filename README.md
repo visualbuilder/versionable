@@ -1,3 +1,4 @@
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/visualbuilder/versionable.svg?style=flat-square)](https://packagist.org/packages/visualbuilder/filament-versionable)
 [![run-tests](https://github.com/visualbuilder/versionable/actions/workflows/run-tests.yml/badge.svg?branch=1.x)](https://github.com/visualbuilder/versionable/actions/workflows/run-tests.yml)
 
 # Laravel Versionable (Polymorphic User Fork)
