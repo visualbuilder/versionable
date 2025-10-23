@@ -103,6 +103,40 @@ $post = Post::create(['title' => 'version1', 'content' => 'version1 content']);
 $post->update(['title' => 'version2']);
 ```
 
+### Polymorphic user example
+
+```php
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Visualbuilder\Versionable\Version;
+
+class Admin extends Authenticatable
+{
+    use SoftDeletes;
+
+    public function versions()
+    {
+        return $this->morphMany(Version::class, 'user');
+    }
+}
+```
+
+Once you attach the trait to a versionable model, versions automatically store the currently authenticated user.
+
+```php
+$admin = Admin::find(1);
+auth()->login($admin);
+
+$post = Post::create(['title' => 'Draft', 'content' => '...']);
+$version = $post->latestVersion;
+
+$version->user; // instance of Admin
+$admin->versions()->latest()->get(); // morphMany inverse relationship
+```
+
+You can repeat the same pattern for any additional authenticatable model that should appear as a version author.
+
+
 ### Get versions
 
 ```php
