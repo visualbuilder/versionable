@@ -1,3 +1,5 @@
+[![run-tests](https://github.com/visualbuilder/versionable/actions/workflows/run-tests.yml/badge.svg?branch=1.x)](https://github.com/visualbuilder/versionable/actions/workflows/run-tests.yml)
+
 # Laravel Versionable (Polymorphic User Fork)
 
 **Fork of [overtrue/laravel-versionable](https://github.com/overtrue/laravel-versionable) with polymorphic user support**
@@ -10,7 +12,7 @@ It's a minimalist way to make your model support version history, and it's very 
 
 This fork replaces the single-user foreign key relationship with a **polymorphic relationship**, enabling:
 
-- Support for multiple user model types (Admin, Associate, EndUser, etc.)
+- Support for multiple user model types (Admin, Associate, OrganisationUser, etc.)
 - Automatic tracking of which user type created each version
 - Compatibility with applications using multiple authentication guards
 - No configuration needed - uses `auth()->user()` to automatically detect the authenticated user
@@ -37,23 +39,7 @@ This fork replaces the single-user foreign key relationship with a **polymorphic
 
 ## Installing
 
-Add the package to your `composer.json`:
-
-```json
-{
-    "repositories": [
-        {
-            "type": "path",
-            "url": "../packages/visualbuilder/versionable"
-        }
-    ],
-    "require": {
-        "visualbuilder/versionable": "*"
-    }
-}
-```
-
-Then run:
+Run:-
 
 ```shell
 composer require visualbuilder/versionable
@@ -96,7 +82,7 @@ class Post extends Model
 }
 ```
 
-Versions will be created on the vensionable model saved.
+Versions will be created on the versionable model saved.
 
 ```php
 $post = Post::create(['title' => 'version1', 'content' => 'version1 content']);
