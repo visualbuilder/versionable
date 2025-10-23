@@ -48,7 +48,7 @@ Add the package to your `composer.json`:
         }
     ],
     "require": {
-        "visualbuilder/laravel-versionable": "*"
+        "visualbuilder/versionable": "*"
     }
 }
 ```
@@ -56,7 +56,7 @@ Add the package to your `composer.json`:
 Then run:
 
 ```shell
-composer require visualbuilder/laravel-versionable
+composer require visualbuilder/versionable
 ```
 
 First, publish the config file and migrations:

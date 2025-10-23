@@ -1,5 +1,5 @@
 {
-    "name": "visualbuilder/laravel-versionable",
+    "name": "visualbuilder/versionable",
     "description": "Make Laravel model versionable with polymorphic user support (Fork of overtrue/laravel-versionable).",
     "require": {
         "php": "^8.1",
