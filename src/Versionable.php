@@ -20,6 +20,7 @@ trait Versionable
     // You can add these properties to you versionable model
     // protected $versionable = [];
     // protected $dontVersionable = ['*'];
+    // protected bool $skipEmptyVersions = false; // Skip creating versions when all versionable attributes are empty
 
     // You can define this variable in class, that used this trait to change Model(table) for versions
     // Model MUST extend \Visualbuilder\Versionable\Version
@@ -243,6 +244,23 @@ trait Versionable
         }
 
         $versionableAttributes = $this->getVersionableAttributes($this->getVersionStrategy());
+
+        // Check if we should skip empty versions
+        if (property_exists($this, 'skipEmptyVersions') && $this->skipEmptyVersions) {
+            // Check if all versionable attributes are empty
+            $hasContent = false;
+            foreach ($versionableAttributes as $key => $value) {
+                if (! empty($value)) {
+                    $hasContent = true;
+                    break;
+                }
+            }
+
+            // Don't create version if no content
+            if (! $hasContent) {
+                return false;
+            }
+        }
 
         return $this->versions()->count() === 0 || Arr::hasAny($this->getDirty(), array_keys($versionableAttributes));
     }

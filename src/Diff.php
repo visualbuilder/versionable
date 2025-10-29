@@ -68,7 +68,7 @@ class Diff
 
     protected function getContents(bool $stripTags = false): array
     {
-        $newContents = $this->newVersion->contents;
+        $newContents = $this->newVersion->contents ?? [];
 
         // if the version strategy is DIFF, we need to merge the contents of all versions
         // from v1 to v2, v2 to v3, ..., vn-1 to vn.
@@ -85,12 +85,12 @@ class Diff
 
             $oldContents = Arr::only($oldContents, array_keys($newContents));
         } else {
-            $oldContents = $this->oldVersion->contents;
+            $oldContents = $this->oldVersion->contents ?? [];
         }
 
         if ($stripTags) {
-            $oldContents = array_map(fn ($item) => strip_tags($item), $oldContents);
-            $newContents = array_map(fn ($item) => strip_tags($item), $newContents);
+            $oldContents = array_map(fn ($item) => strip_tags($item), $oldContents ?? []);
+            $newContents = array_map(fn ($item) => strip_tags($item), $newContents ?? []);
         }
 
         return [$oldContents, $newContents];
