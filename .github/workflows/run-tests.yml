@@ -10,13 +10,14 @@ jobs:
             matrix:
                 os: [ubuntu-latest]
                 php: [8.2,8.3,8.4]
-                laravel: [11.*,12.*,13.*]
+                # laravel 11 dropped from CI: it is EOL and every 11.x release
+                # is blocked by composer's security-advisory policy, so the leg
+                # can never install. The ^11 composer constraint remains for
+                # existing consumers.
+                laravel: [12.*,13.*]
                 stability: [ prefer-stable ]
                 dependency-version: [ prefer-stable]
                 include:
-                    -   laravel: 11.*
-                        testbench: 9.*
-                        filament: 4.*
                     -   laravel: 12.*
                         testbench: 10.*
                         filament: 4.*
